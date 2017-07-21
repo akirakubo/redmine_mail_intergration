@@ -33,7 +33,7 @@ module RedmineMailIntergration
             msg = MailMessage.find_by_message_id_and_username(email.in_reply_to, ENV['username'])
             msg = MailMessage.find_by_message_id_and_username(email.references, ENV['username']) unless msg
 
-            if msg
+            if msg and Issue.find_by_id(msg.issue_id)
               journal = receive_issue_reply(msg.issue_id)
               issue = journal.issue
             else
